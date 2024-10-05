@@ -71,3 +71,16 @@ Clone this repository:
 ```bash
 git clone https://github.com/Ultralytics/yolov5.git
 cd yolov5
+
+
+Install the required Python libraries:
+
+```bash
+pip install -r requirements.txt
+Running the Project
+To start the system:
+
+```bash
+
+python3 detectultra.py
+This script will start the camera, detect objects, measure the distance to obstacles, track the user's location, and provide verbal alerts.

@@ -69,5 +69,5 @@ The Raspberry Pi Camera is used with the Picamera2 library for video capture and
 Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/project-repo.git
-cd project-repo
+git clone https://github.com/Ultralytics/yolov5.git
+cd yolov5

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Blind Stick Tracking System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" />
+    <style>
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        #map {
+            height: 400px;
+        }
+       
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3d4146;
+    color: #333;
+}
+
+h1 { 
+    color: #2d3748;
+    text-align: center;
+}
+
+h2 {
+    color: #1a202c;
+}
+
+p {
+    color: #4a5568;
+}
+
+
+#home {
+    padding: 40px;
+}
+
+#home .grid {
+    gap: 2rem;
+}
+
+#home .grid div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+#home .grid div:hover {
+    transform: translateY(-10px);
+}
+
+#home h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#home img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    
+    background-size: cover;
+}
+
+#home p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    #home .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    #home .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2b2c2c;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+
+nav {
+    background-color: #3498db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ecf0f1;
+}
+
+#home .grid {
+    gap: 2rem;
+}
+
+#home .grid > div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#home .grid > div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#home h2 {
+    color: #2980b9;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#home img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+#home p {
+    color: #34495e;
+}
+
+
+#map {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bg-white {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.bg-white:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button {
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+
+#contact .bg-white, #help .bg-white {
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+#help h3 {
+    color: #2980b9;
+}
+
+@media (max-width: 768px) {
+    #home .grid, #features .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.page {
+    animation: fadeIn 0.5s ease-out;
+}
+:root {
+    --primary: #4a90e2;
+    --secondary: #50e3c2;
+    --accent: #f39c12;
+    --background: #f0f4f8;
+    --text: #2c3e50;
+    --light-text: #ecf0f1;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f1c40f;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary);
+}
+
+
+nav {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+
+#home .grid {
+    gap: 2rem;
+}
+
+#home .grid > div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--primary);
+}
+
+#home .grid > div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-top: 4px solid var(--accent);
+}
+
+#home h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#home img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+#home img:hover {
+    transform: scale(1.05);
+}
+
+#home p {
+    color: var(--text);
+}
+
+
+#map {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bg-white {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--secondary);
+}
+
+.bg-white:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid var(--accent);
+}
+
+button {
+    transition: all 0.3s ease;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.bg-red-500 {
+    background-color: var(--danger);
+}
+
+.bg-green-500 {
+    background-color: var(--success);
+}
+
+
+#contact .bg-white, #help .bg-white {
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--accent);
+}
+
+#help h3 {
+    color: var(--primary);
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.page {
+    animation: fadeIn 0.5s ease-out;
+}
+
+
+@media (max-width: 768px) {
+    #home .grid, #features .grid {
+        grid-template-columns: 1fr;
+    }
+}
+:root {
+    --primary: #ff3b3b;
+    --primary-dark: #d32f2f;
+    --secondary: #2c2c2c;
+    --background: #1a1a1a;
+    --text: #ffffff;
+    --text-muted: #b0b0b0;
+    --card-bg: #2c2c2c;
+    --success: #4caf50;
+    --danger: #f44336;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary);
+}
+
+
+nav {
+    background-color: var(--secondary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+#home .grid {
+    gap: 2rem;
+}
+
+#home .grid > div {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--primary);
+}
+
+#home .grid > div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(255, 59, 59, 0.2);
+}
+
+#home h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#home img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    filter: grayscale(30%) contrast(120%);
+    transition: all 0.3s ease;
+}
+
+#home img:hover {
+    filter: grayscale(0%) contrast(100%);
+}
+
+#home p {
+    color: var(--text-muted);
+}
+
+
+#map {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    filter: grayscale(50%) invert(92%) hue-rotate(180deg);
+}
+
+.bg-white {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary);
+}
+
+.bg-white:hover {
+    box-shadow: 0 4px 8px rgba(255, 59, 59, 0.2);
+}
+
+button {
+    transition: all 0.3s ease;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 59, 59, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.bg-red-500 {
+    background-color: var(--danger);
+}
+
+.bg-green-500 {
+    background-color: var(--success);
+}
+
+
+#contact .bg-white, #help .bg-white {
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--primary);
+}
+
+#help h3 {
+    color: var(--primary);
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.page {
+    animation: fadeIn 0.5s ease-out;
+}
+
+
+@media (max-width: 768px) {
+    #home .grid, #features .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.text-gray-600, .text-gray-700 {
+    color: var(--text-muted);
+}
+
+#locationHistory div, #alertsLog div {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+#alertsLog div {
+    background-color: rgba(244, 67, 54, 0.2);
+}
+body {
+    background-color: #1a1a1a;
+}
+        
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">Smart Blind Stick</a>
+            <ul class="flex space-x-4">
+                <li><a href="#" onclick="showPage('home')" class="hover:text-blue-200">Home</a></li>
+                <li><a href="#" onclick="showPage('features')" class="hover:text-blue-200">Track</a></li>
+                <li><a href="#" onclick="showPage('contact')" class="hover:text-blue-200">Contact</a></li>
+                <li><a href="#" onclick="showPage('help')" class="hover:text-blue-200">Help</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8">
+        <div id="features" class="page active">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            <h1 class="text-3xl font-bold mb-6">Real-Time Tracking</h1>
+            <div id="map" class="mb-6 rounded-lg shadow-md"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-lg mb-2">Current Location</h3>
+                    <p id="currentLocation" class="text-gray-600">Loading...</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-lg mb-2">Last Updated</h3>
+                    <p id="lastUpdated" class="text-gray-600">-</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-lg mb-2">Battery Level</h3>
+                    <p id="batteryLevel" class="text-gray-600">-</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-lg mb-2">Movement Status</h3>
+                    <p id="movementStatus" class="text-gray-600">-</p>
+                </div>
+            </div>
+            <div class="flex space-x-4 mb-6">
+                <button onclick="sendAlert('Help needed')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Send Help Alert</button>
+                <button onclick="toggleGeofence()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Toggle Geofence</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Location History</h2>
+                    <div id="locationHistory" class="bg-white p-4 rounded-lg shadow h-64 overflow-y-auto"></div>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Alerts Log</h2>
+                    <div id="alertsLog" class="bg-white p-4 rounded-lg shadow h-64 overflow-y-auto"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="home" class="page">
+            <h1 class="text-3xl font-bold mb-6">Smart Blind Stick</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-4">GPS Tracking</h2>
+                    <img src="gpstracking.jpg" alt="GPS Tracking illustration" class="w-full h-48 object-cover mb-4 rounded">
+                    <p class="text-gray-700">Our advanced GPS tracking system provides real-time location information, ensuring the safety of the user. Caregivers can monitor the location through our web interface or mobile app.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-4">Obstacle Detection</h2>
+                    <img src="objectdetection.jpg" alt="Obstacle Detection illustration" class="w-full h-48 object-cover mb-4 rounded">
+                    <p class="text-gray-700">Using state-of-the-art ultrasonic sensors, the Smart Blind Stick detects obstacles in the user's path and provides tactile feedback, enhancing mobility and safety.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-4">Emergency Alert System</h2>
+                    <img src="alert.jpg" alt="Emergency Alert System illustration" class="w-full h-48 object-cover mb-4 rounded">
+                    <p class="text-gray-700">With a simple button press, users can send immediate alerts to pre-designated emergency contacts, ensuring help is always at hand when needed.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-4">Voice Navigation</h2>
+                    <img src="voice.jpg" alt="Voice Navigation illustration" class="w-full h-48 object-cover mb-4 rounded">
+                    <p class="text-gray-700">Integrated voice navigation provides turn-by-turn directions and important environmental information, helping users navigate with confidence.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-4">Long-lasting Battery</h2>
+                    <img src="battery.jpg" alt="Long-lasting Battery illustration" class="w-full h-48 object-cover mb-4 rounded">
+                    <p class="text-gray-700">Our smart stick is equipped with a high-capacity, rechargeable battery that lasts up to 72 hours on a single charge, ensuring reliability throughout the day.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h2 class="text-2xl font-bold mb-4">Weather Resistant</h2>
+                    <img src="weather.jpg" alt="Weather Resistant illustration" class="w-full h-48 object-cover mb-4 rounded">
+                    <p class="text-gray-700">Designed to withstand various weather conditions, our Smart Blind Stick is water-resistant and durable, providing reliable assistance in rain or shine.</p>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div id="contact" class="page">
+            <h1 class="text-3xl font-bold mb-6">Contact Us</h1>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <p class="mb-4">For any inquiries or support, please reach out to us:</p>
+                <ul class="space-y-2">
+                    <li><strong>Email:</strong> support@smartblindstick.com</li>
+                    <li><strong>Phone:</strong> 9798909865</li>
+                    <li><strong>Address:</strong> 123 Tech Lane, Innovation City, IN 54321, USA</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="help" class="page">
+            <h1 class="text-3xl font-bold mb-6">Help & FAQ</h1>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-2">How do I activate the geofence?</h3>
+                    <p>Click the "Toggle Geofence" button on the home page to activate or deactivate the geofence.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-2">What should I do if the battery is low?</h3>
+                    <p>Charge the smart stick as soon as possible. The system will send an automatic alert when the battery level drops below 20%.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-2">How can I update the emergency contact information?</h3>
+                    <p>Please contact our support team to update the emergency contact details for your device.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-xl font-bold mb-2">What do I do in case of an emergency?</h3>
+                    <p>Press the "Send Help Alert" button on the home page or use the physical button on the smart stick to send an immediate alert to the registered emergency contact.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    /*<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js"></script>
+    <script>
+        let map, marker, circle;
+        let locationHistory = [];
+        let alertsLog = [];
+        let isGeofenceActive = false;
+        let lastLocation = null;
+        
+        
+
+        function initMap() {
+            map = L.map('map').setView([0, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            marker = L.marker([0, 0]).addTo(map);
+        }
+        
+
+
+        function updateLocation(lat, lon) {
+            const location = [lat, lon];
+            marker.setLatLng(location);
+            map.setView(location, 15);
+            
+            document.getElementById('currentLocation').textContent = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+
+            locationHistory.unshift({ lat, lon, time: new Date().toLocaleString() });
+            updateLocationHistory();
+
+            checkMovement(location);
+            checkGeofence(location);
+
+            lastLocation = location;
+        }
+
+        function updateLocationHistory() {
+            const historyContainer = document.getElementById('locationHistory');
+            historyContainer.innerHTML = '';
+            locationHistory.slice(0, 10).forEach(loc => {
+                const item = document.createElement('div');
+                item.classList.add('mb-2', 'p-2', 'bg-gray-100', 'rounded');
+                item.textContent = `${loc.lat.toFixed(6)}, ${loc.lon.toFixed(6)} - ${loc.time}`;
+                historyContainer.appendChild(item);
+            });
+        }
+
+        function updateBatteryLevel(level) {
+            document.getElementById('batteryLevel').textContent = `${level}%`;
+            if (level < 20) {
+                sendAlert("Low battery");
+            }
+        }
+
+        function checkMovement(newLocation) {
+            if (lastLocation) {
+                const distance = calculateDistance(lastLocation, newLocation);
+                const status = distance > 0.0001 ? "Moving" : "Stationary";
+                document.getElementById('movementStatus').textContent = status;
+            }
+        }
+
+        function toggleGeofence() {
+            isGeofenceActive = !isGeofenceActive;
+            if (isGeofenceActive) {
+                circle = L.circle(marker.getLatLng(), {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.2,
+                    radius: 100
+                }).addTo(map);
+                sendAlert("Geofence activated");
+            } else {
+                if (circle) {
+                    map.removeLayer(circle);
+                    circle = null;
+                }
+                sendAlert("Geofence deactivated");
+            }
+        }
+
+        function checkGeofence(location) {
+            if (isGeofenceActive && circle) {
+                const distance = calculateDistance(circle.getLatLng(), location);
+                if (distance > 0.1) { // 100 meters
+                    sendAlert("Geofence breach detected");
+                }
+            }
+        }
+
+        function sendAlert(message) {
+            alertsLog.unshift({ message, time: new Date().toLocaleString() });
+            updateAlertsLog();
+        }
+
+        function updateAlertsLog() {
+            const alertsContainer = document.getElementById('alertsLog');
+            alertsContainer.innerHTML = '';
+            alertsLog.forEach(alert => {
+                const item = document.createElement('div');
+                item.classList.add('mb-2', 'p-2', 'bg-red-100', 'rounded');
+                item.textContent = `${alert.message} - ${alert.time}`;
+                alertsContainer.appendChild(item);
+            });
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        
+        function simulateGPSUpdates() {
+            const lat = 10.999;
+            const lon = 77.0324;
+            updateLocation(lat, lon);
+            updateBatteryLevel(Math.floor(Math.random() * 100));
+            setTimeout(simulateGPSUpdates, 5000);
+        }
+
+        window.onload = function() {
+            initMap();
+            simulateGPSUpdates();
+        };
+    </script>
+</body>
+</html>
+

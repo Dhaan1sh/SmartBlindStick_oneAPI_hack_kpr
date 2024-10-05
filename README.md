@@ -1,0 +1,1 @@
+# SmartBlindStick_oneAPI_hack_kpr
